@@ -1,0 +1,7 @@
+#!/bin/bash
+for file
+do
+  width=$(identify -format "%[w]" "$file" 2>/dev/null)
+  height=$(identify -format "%[h]" "$file" 2>/dev/null)
+  convert "$file" -crop $((width/2))x${height} "$file.%02d.png"
+done

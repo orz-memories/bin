@@ -1,0 +1,9 @@
+#!/bin/bash
+for file
+do
+  tmpfil=$(mktemp)
+  tmpfile=$tmpfil$(basename "$file")
+  convert "$file" -negate "$tmpfile"
+  convert  -delay 1 -loop 0 "$file" "$tmpfile" "$file.negif.gif"
+  rm "$tmpfile" "$tmpfil"
+done

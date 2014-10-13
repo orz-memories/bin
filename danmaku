@@ -1,0 +1,11 @@
+#!/bin/bash
+for file
+do
+  size=$(ffmpeg -i "$file" 2>&1 | perl -lane 'print $1 if /(\d\d+x\d\d+)/')
+  if [ -n "$size" ]; then
+    $HOME/Git/danmaku2ass/danmaku2ass.py -o "${file%.*}.ass" -s $size -l 8 "${file%.*}.xml"
+  else
+    echo "danmaku: $file is not a valid video file.">&2
+  fi
+done
+
